@@ -6,11 +6,37 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:15:59 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 13:09:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/09 13:10:51 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	append_node(t_list **head, char *line)
+{
+	t_list	*new_node;
+	t_list	*current;
+
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+	{
+		perror("Failed to allocate node");
+		exit(1);
+	}
+	new_node->line = line;
+	new_node->next = NULL;
+	if (*head == NULL)
+		*head = new_node;
+	else
+	{
+		current = *head;
+		while (current->next != NULL)
+		{
+			current = current->next;
+		}
+		current->next = new_node;
+	}
+}
 
 void	read_map(int fd, t_map_data *m_data)
 {
