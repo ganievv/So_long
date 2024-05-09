@@ -6,13 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:31:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 16:36:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/09 16:43:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	first_line(const char *str)
+// ??? maybe you should add str[i] != '\0' in while loop???
+
+static int	bottom_top_line(const char *str)
 {
 	int	i;
 
@@ -36,6 +38,20 @@ static void	check_flag(int flag, t_list *map)
 	}
 }
 
+static int	between_line(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] != '1')
+		return (1);
+	while (str[i] != '\n')
+		i++;
+	if (str[--i] != '1')
+		return (1);
+	return (0);
+}
+
 void	check_wall(t_list *map)
 {
 	t_list	*current;
@@ -43,7 +59,7 @@ void	check_wall(t_list *map)
 
 	flag = 0;
 	current = map;
-	flag = first_line(current->line);
+	flag = bottom_top_line(current->line);
 	check_flag(flag, map);
 	while (current != NULL)
 	{
@@ -53,6 +69,6 @@ void	check_wall(t_list *map)
 		flag = between_line(current->line);
 		check_flag(flag, map);
 	}
-	flag = last_line(current->line);
+	flag = bottom_top_line(current->line);
 	check_flag(flag, map);
 }
