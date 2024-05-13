@@ -6,15 +6,29 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 15:12:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 14:00:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// should you buf_w-- ? because in str there is \n
+static int	symb_count(char *line)
+{
+	int	size;
+	int	i;
 
-// ??? i < m_data->hight     OR      i <= m_data->hight   ???
+	i = 0;
+	size = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			break ;
+		else
+			size++;
+		i++;
+	}
+	return (size);
+}
 
 void	check_width_hight(t_map_data *m_data)
 {
@@ -29,10 +43,10 @@ void	check_width_hight(t_map_data *m_data)
 		current = current->next;
 	}
 	current = m_data->map;
-	line_size = ft_strlen(current->line);
+	line_size = symb_count(current->line);
 	while (current != NULL)
 	{
-		if (ft_strlen(current->line) != line_size)
+		if (symb_count(current->line) != line_size)
 		{
 			ft_printf("Error\n!!!The wall is crooked. Make it straight!!!\n");
 			free_list(m_data->map);
