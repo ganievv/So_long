@@ -6,20 +6,18 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:31:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 16:43:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 14:11:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// ??? maybe you should add str[i] != '\0' in while loop???
-
-static int	bottom_top_line(const char *str)
+static int	bottom_top_lines(const char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] != '\n' && str[i])
 	{
 		if (str[i] != '1')
 			return (1);
@@ -45,7 +43,7 @@ static int	between_line(const char *str)
 	i = 0;
 	if (str[i] != '1')
 		return (1);
-	while (str[i] != '\n')
+	while (str[i] != '\n' && str[i])
 		i++;
 	if (str[--i] != '1')
 		return (1);
@@ -59,7 +57,7 @@ void	check_wall(t_list *map)
 
 	flag = 0;
 	current = map;
-	flag = bottom_top_line(current->line);
+	flag = bottom_top_lines(current->line);
 	check_flag(flag, map);
 	while (current != NULL)
 	{
@@ -69,6 +67,6 @@ void	check_wall(t_list *map)
 		flag = between_line(current->line);
 		check_flag(flag, map);
 	}
-	flag = bottom_top_line(current->line);
+	flag = bottom_top_lines(current->line);
 	check_flag(flag, map);
 }
