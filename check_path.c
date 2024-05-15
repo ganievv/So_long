@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:53 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/15 19:02:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:50:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,56 @@ static char	**to_array(t_map_data *m_data)
 		arr[y++] = ft_strdup(current->line);
 		current = current->next;
 	}
+	return (arr);
 }
 
-void	begin_search(t_map_data *m_data, char **arr, t_point *begin)
+void	player_search(t_map_data *m_data, char **arr, t_point *player)
 {
+	player->x = 0;
+	player->y = 0;
+	while (player->y < m_data->hight)
+	{
+		while (player->x < m_data->width)
+		{
+			if (arr[player->y][player->x] == 'P')
+				return ;
+			player->x++;
+		}
+		player->x = 0;
+		player->y++;
+	}
+}
+
+void	begin_search(char **arr, t_point *size,
+	t_point *player, t_point *begin)
+{
+	if (player->y - 1 > 0 && arr[player->y - 1][player->x] == '0')
+	{
+		begin->x = player->x;
+		begin->y = player->y - 1;
+	}
+	if (player->y + 1 < size->y - 1 && arr[player->y + 1][player->x] == '0')
+	{
+		begin->x = player->x;
+		begin->y = player->y + 1;
+	}
+	if (player->x - 1 > 0 && arr[player->y][player->x - 1] == '0')
+	{
+		begin->x = player->x - 1;
+		begin->y = player->y;
+	}
+	if (player->x + 1 < size->x - 1 && arr[player->y][player->x + 1] == '0')
+	{
+		begin->x = player->x + 1;
+		begin->y = player->y;
+	}
 }
 
 void	check_path(t_map_data *m_data)
 {
 	char	**arr_copy;
 	t_point	size;
+	t_point	player;
 	t_point	begin;
 
 	m_data->map_arr = to_array(m_data);
@@ -78,7 +118,8 @@ void	check_path(t_map_data *m_data)
 	}
 	size.x = m_data->width;
 	size.y = m_data->hight;
-	begin_search(m_data, arr_copy, &begin);
+	player_search(m_data, arr_copy, &player);
+	begin_search(arr_copy, &size, &player, &begin);
 	flood_fill(arr_copy, size, begin);
 }
 
