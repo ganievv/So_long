@@ -6,13 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:17:16 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 17:37:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:22:34 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// ??? maybe you should add "&& line[i] != '\0'" in loop ???
 
 // ??? should you save coordinates of player ???
 
@@ -23,10 +21,11 @@ static int	check_line(const char *line)
 
 	player_count = 0;
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 	{
 		if (line[i] == 'P')
 			player_count++;
+		i++;
 	}
 	return (player_count);
 }
