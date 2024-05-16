@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:15:59 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 14:09:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:28:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 
 // you should check comments in test_1.c file
 
-// you don't allocate memory for m_data->map, but only for strings
-// maybe you should use strjoin but you own version? or maybe 
-// you should usse just 1 string and strjoin? or fixed size buffer (e.g. 1000) ?
-
-void	check_map(t_map_data *m_data)
+static void	check_map(t_map_data *m_data)
 {
 	check_isempty(m_data->map);
+	check_for_valid_symbols(m_data->map);
 	check_width_hight(m_data);
+	check_wall(m_data->map);
+	check_player(m_data->map);
+	check_exit(m_data->map);
+	check_collectible(m_data);
+	check_path(m_data);
 }
 
-void	append_node(t_list **head, char *line)
+static void	append_node(t_list **head, char *line, int fd)
 {
 	t_list	*new_node;
 	t_list	*current;
@@ -34,7 +36,8 @@ void	append_node(t_list **head, char *line)
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
 	{
-		perror("Error\n!!!Failed to allocate node!!!\n");
+		ft_printf("Error\n!!!Failed to allocate node!!!\n");
+		close(fd);
 		exit(1);
 	}
 	new_node->line = line;
@@ -50,7 +53,7 @@ void	append_node(t_list **head, char *line)
 	}
 }
 
-void	read_map(int fd, t_map_data *m_data)
+static void	read_map(int fd, t_map_data *m_data)
 {
 	char	*line;
 	t_list	*head;
@@ -61,13 +64,14 @@ void	read_map(int fd, t_map_data *m_data)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		append_node(&head, line);
+		append_node(&head, line, fd);
 	}
+	close(fd);
 	m_data->map = head;
 	check_map(m_data);
 }
 
-void	open_map(char *map)
+static void	open_map(char *map)
 {
 	int			fd;
 	t_map_data	m_data;
@@ -75,21 +79,31 @@ void	open_map(char *map)
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("Error\n!!!Failed to open file!!!\n");
+		ft_printf("Error\n!!!Failed to open the file!!!\n");
 		exit(1);
 	}
 	read_map(fd, &m_data);
-	close(fd);
 }
 
 int	main(int argc, char *argv[])
 {
+	int	flag;
+
 	if (argc != 2)
 	{
-		ft_printf("Error\n!!!You need to pass .ber file and nothing else!!!\n");
+		ft_printf("Error\n!!!You need to pass a "
+			".ber file and nothing else!!!\n");
 		return (1);
 	}
 	else
+	{
+		flag = check_file_name(argv[1]);
+		if (flag == 1)
+		{
+			ft_printf("Error\n!!!You should use a .ber file!!!\n");
+			return (1);
+		}
 		open_map(argv[1]);
+	}
 	return (0);
 }
