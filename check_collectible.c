@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:48:26 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 17:51:28 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:25:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int	check_line(const char *line)
 
 	collectible_count = 0;
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 	{
 		if (line[i] == 'C')
 			collectible_count++;
+		i++;
 	}
 	return (collectible_count);
 }
@@ -34,18 +35,18 @@ static void	end_program(t_list *map)
 	exit(1);
 }
 
-void	check_collectible(t_list *map)
+void	check_collectible(t_map_data *m_data)
 {
-	int		collectible_count;
 	t_list	*current;
 
-	collectible_count = 0;
-	current = map;
+	current = m_data->map;
+	m_data->collectible_current = 0;
+	m_data->collectible_total = 0;
 	while (current != NULL)
 	{
-		collectible_count += check_line(current->line);
+		m_data->collectible_total += check_line(current->line);
 		current = current->next;
 	}
-	if (collectible_count == 0)
-		end_program(map);
+	if (m_data->collectible_total == 0)
+		end_program(m_data->map);
 }
