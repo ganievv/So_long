@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:53 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/16 15:24:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/16 16:44:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ static void	check_flood(t_map_data *m_data)
 
 	item.x = 0;
 	item.y = 0;
-	begin.x = 0;
-	begin.y = 0;
 	while (item.y < m_data->hight)
 	{
 		while (item.x < m_data->width)
@@ -86,7 +84,8 @@ static void	check_flood(t_map_data *m_data)
 			if (m_data->map_arr[item.y][item.x] == 'C'
 				|| m_data->map_arr[item.y][item.x] == 'E')
 			{
-				symb_search(m_data, &item, &begin, 'F');
+				begin.x = 0;
+				begin.y = 0;
 				isinvalid(&begin, m_data);
 			}
 			item.x++;
