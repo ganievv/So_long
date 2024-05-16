@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:55:10 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/11 18:38:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:25:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_line(const char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 	{
 		if (line[i] != '1' && line[i] != '0'
 			&& line[i] != 'P' && line[i] != 'E' && line[i] != 'C')
@@ -29,7 +29,8 @@ static int	check_line(const char *line)
 
 static void	end_program(t_list *map)
 {
-	ft_printf("Error\n!!!Incorrect symbols in the map\n");
+	ft_printf("Error\n!!!Incorrect symbols in the map "
+		"(allowed: 1, 0, P, C, E)\n");
 	free_list(map);
 	exit(1);
 }
