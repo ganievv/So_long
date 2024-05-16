@@ -6,12 +6,18 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/05 13:42:57 by sganiev           #+#    #+#              #
-#    Updated: 2024/05/08 14:50:06 by sganiev          ###   ########.fr        #
+#    Updated: 2024/05/16 15:25:16 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = game
-SRC = so_long.c
+
+SRC = so_long.c check_collectible.c check_exit.c \
+check_file_name.c check_for_valid_symbols.c  \
+check_isempty.c check_player.c check_wall.c  \
+check_width_hight.c free_list.c check_path.c \
+flood_fill.c free_arr.c item_search.c \
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLX = -L/Users/sganiev/Study/So_long -lmlx -framework OpenGL -framework AppKit
@@ -22,7 +28,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 mlx_lib:
-	make -C ./mlx -s
+	make -C ./mlx
 	mv ./mlx/libmlx.dylib ./
 
 $(LIBFT):
