@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:42:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 17:44:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:23:40 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int	check_line(const char *line)
 
 	exit_count = 0;
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 	{
 		if (line[i] == 'E')
 			exit_count++;
+		i++;
 	}
 	return (exit_count);
 }
