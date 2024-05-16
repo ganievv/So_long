@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 19:23:02 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/08 13:37:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/11 19:08:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2_len = ft_strlen(s2);
 	i = 0;
 	j = 0;
-	new_str = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
+	new_str = (char *)ft_calloc((s1_len + s2_len + 1), sizeof(char));
 	if (new_str == NULL)
 		return (NULL);
 	while (s1 != NULL && s1[i])
