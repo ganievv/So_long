@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:15:59 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/15 18:28:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:14:19 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	append_node(t_list **head, char *line, int fd)
 	}
 }
 
-static void	read_map(int fd, t_map_data *m_data)
+static void	read_map(int fd, t_mlx_data	*mlx)
 {
 	char	*line;
 	t_list	*head;
@@ -67,14 +67,15 @@ static void	read_map(int fd, t_map_data *m_data)
 		append_node(&head, line, fd);
 	}
 	close(fd);
-	m_data->map = head;
-	check_map(m_data);
+	mlx->m_data.map = head;
+	check_map(&(mlx->m_data));
+	map_rendering(mlx);
 }
 
 static void	open_map(char *map)
 {
 	int			fd;
-	t_map_data	m_data;
+	t_mlx_data	mlx;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
@@ -82,7 +83,7 @@ static void	open_map(char *map)
 		ft_printf("Error\n!!!Failed to open the file!!!\n");
 		exit(1);
 	}
-	read_map(fd, &m_data);
+	read_map(fd, &mlx);
 }
 
 int	main(int argc, char *argv[])
