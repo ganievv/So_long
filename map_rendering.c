@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:03:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/17 15:58:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:37:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,25 @@ static void	put_image(t_mlx_data *mlx, t_textures *game, t_map_data *m_data)
 	}
 }
 
-int	map_rendering(t_map_data *m_data)
+int	map_rendering(t_mlx_data *mlx)
 {
-	t_mlx_data		mlx;
-	t_textures		game;
-	t_image_info	window;
-
-	mlx.connection = mlx_init();
-	if (mlx.connection == NULL)
+	mlx->connection = mlx_init();
+	if (mlx->connection == NULL)
 		return (1);
-	if (save_textures(&mlx, &game) == 1)
+	if (save_textures(mlx, &(mlx->game)) == 1)
 		return (1);
-	mlx.window = mlx_new_window(mlx.connection,
-			m_data->width * 100, m_data->hight * 100, "Game");
-	if (mlx.window == NULL)
+	mlx->window = mlx_new_window(mlx->connection,
+			mlx->m_data.width * 100, mlx->m_data.hight * 100, "Game");
+	if (mlx->window == NULL)
 		return (1);
-	window.img = mlx_new_image(mlx.connection,
-			m_data->width * 100, m_data->hight * 100);
-	window.addr = mlx_get_data_addr(window.img, &window.bits_per_pixel,
-			&window.line_length, &window.endian);
-	put_image(&mlx, &game, m_data);
-	mlx_loop(mlx.connection);
+	mlx->image.img = mlx_new_image(mlx->connection,
+			mlx->m_data.width * 100, mlx->m_data.hight * 100);
+	mlx->image.addr = mlx_get_data_addr(mlx->image.img,
+			&(mlx->image.bits_per_pixel),
+			&(mlx->image.line_length), &(mlx->image.endian));
+	put_image(mlx, &(mlx->game), &(mlx->m_data));
+	mlx_hook(mlx->window, 2, 1L << 0, events, mlx);
+	mlx_loop(mlx->connection);
+	mlx_destroy_window(mlx->connection, mlx->window);
 	return (0);
 }
