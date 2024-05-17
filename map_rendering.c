@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:03:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/17 17:37:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:57:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,6 @@ static	int	save_textures(t_mlx_data *mlx, t_textures *game)
 		return (0);
 }
 
-static void	image_put(char symb, t_mlx_data *mlx,
-	t_textures *game, t_point *image)
-{
-	if (symb == '1')
-		mlx_put_image_to_window(mlx->connection, mlx->window,
-			game->wall, image->x * 100, image->y * 100);
-	if (symb == '0')
-		mlx_put_image_to_window(mlx->connection, mlx->window,
-			game->free_space, image->x * 100, image->y * 100);
-	if (symb == 'P')
-		mlx_put_image_to_window(mlx->connection, mlx->window,
-			game->player, image->x * 100, image->y * 100);
-	if (symb == 'C')
-		mlx_put_image_to_window(mlx->connection, mlx->window,
-			game->collect, image->x * 100, image->y * 100);
-	if (symb == 'E')
-		mlx_put_image_to_window(mlx->connection, mlx->window,
-			game->exit, image->x * 100, image->y * 100);
-}
-
-static void	put_image(t_mlx_data *mlx, t_textures *game, t_map_data *m_data)
-{
-	t_point			image;
-
-	image.x = 0;
-	image.y = 0;
-	while (image.y < m_data->hight)
-	{
-		while (image.x < m_data->width)
-		{
-			image_put(m_data->map_c[image.y][image.x], mlx, game, &image);
-			image.x++;
-		}
-		image.x = 0;
-		image.y++;
-	}
-}
-
 int	map_rendering(t_mlx_data *mlx)
 {
 	mlx->connection = mlx_init();
@@ -88,7 +50,7 @@ int	map_rendering(t_mlx_data *mlx)
 	mlx->image.addr = mlx_get_data_addr(mlx->image.img,
 			&(mlx->image.bits_per_pixel),
 			&(mlx->image.line_length), &(mlx->image.endian));
-	put_image(mlx, &(mlx->game), &(mlx->m_data));
+	put_image(mlx);
 	mlx_hook(mlx->window, 2, 1L << 0, events, mlx);
 	mlx_loop(mlx->connection);
 	mlx_destroy_window(mlx->connection, mlx->window);
