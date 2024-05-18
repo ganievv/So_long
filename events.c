@@ -6,11 +6,39 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:48 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 15:44:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:46:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static	void	code_check(int keycode, t_point *player, char **map, int *move)
+{
+	if (keycode == KEY_W && map[player->y - 1][player->x] != '1')
+	{
+		player->y--;
+		(*move)++;
+		ft_printf("Current number of movements: %d\n", *move);
+	}
+	else if (keycode == KEY_A && map[player->y][player->x - 1] != '1')
+	{
+		player->x--;
+		(*move)++;
+		ft_printf("Current number of movements: %d\n", *move);
+	}
+	else if (keycode == KEY_S && map[player->y + 1][player->x] != '1')
+	{
+		player->y++;
+		(*move)++;
+		ft_printf("Current number of movements: %d\n", *move);
+	}
+	else if (keycode == KEY_D && map[player->y][player->x + 1] != '1')
+	{
+		player->x++;
+		(*move)++;
+		ft_printf("Current number of movements: %d\n", *move);
+	}
+}
 
 int	events(int keycode, t_mlx_data *mlx)
 {
