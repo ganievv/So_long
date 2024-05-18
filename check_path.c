@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:53 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/16 16:44:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:09:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static void	check_flood(t_map_data *m_data)
 void	check_path(t_map_data *m_data)
 {
 	t_point	size;
-	t_point	player;
 	t_point	begin;
 
 	m_data->map_arr = to_array(m_data);
@@ -116,8 +115,8 @@ void	check_path(t_map_data *m_data)
 	size.y = m_data->hight;
 	begin.x = 0;
 	begin.y = 0;
-	item_search(m_data, &player, 'P');
-	symb_search(m_data, &player, &begin, '0');
+	item_search(m_data, &(m_data->player), 'P');
+	symb_search(m_data, &(m_data->player), &begin, '0');
 	isinvalid(&begin, m_data);
 	flood_fill(m_data->map_arr, size, begin);
 	check_flood(m_data);
