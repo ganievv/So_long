@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:03:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/17 17:57:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:32:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ static	int	save_textures(t_mlx_data *mlx, t_textures *game)
 
 int	map_rendering(t_mlx_data *mlx)
 {
+	mlx->m_data.exit_flag = 0;
+	mlx->m_data.movements_num = 0;
+	mlx->m_data.covered_flag = 0;
+	mlx->m_data.is_e = 0;
 	mlx->connection = mlx_init();
 	if (mlx->connection == NULL)
 		return (1);
