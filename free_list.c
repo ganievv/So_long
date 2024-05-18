@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:02:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/09 13:02:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:45:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	free_list(t_list *head)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->line);
+		if (tmp->line != NULL)
+			free(tmp->line);
 		free(tmp);
 	}
 }
