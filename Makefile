@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/05 13:42:57 by sganiev           #+#    #+#              #
-#    Updated: 2024/05/18 19:05:37 by sganiev          ###   ########.fr        #
+#    Updated: 2024/05/18 20:09:42 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ close_window.c                                   \
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -L/Users/sganiev/Study/So_long -lmlx -framework OpenGL -framework AppKit
+MLX = -L./ -lmlx -framework OpenGL -framework AppKit
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -42,7 +42,6 @@ $(NAME): mlx_lib $(LIBFT)
 clean:
 	make -C ./mlx -s clean
 	make -C ./libft -s clean
-	rm -f $(OBJ)
 
 fclean: clean
 	rm -rf libmlx.dylib
@@ -51,4 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all, clean, fclean, re, mlx_lib, $(LIBFT), $(NAME)
