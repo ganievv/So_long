@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:13:30 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 15:31:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:06:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void	item_search(t_map_data *m_data, t_point *player, char item);
 int		map_rendering(t_mlx_data *mlx);
 void	put_image(t_mlx_data *mlx);
 int		events(int keycode, t_mlx_data *mlx);
+void	cleanup(t_mlx_data *mlx);
 
 #endif
