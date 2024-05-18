@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:48 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 15:46:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:48:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,38 @@ static	void	code_check(int keycode, t_point *player, char **map, int *move)
 		player->x++;
 		(*move)++;
 		ft_printf("Current number of movements: %d\n", *move);
+	}
+}
+
+static	void	old_place_check(int *covered_flag, char **map, t_point old)
+{
+	if (*covered_flag == 1)
+	{
+		map[old.y][old.x] = 'E';
+		*covered_flag = 0;
+	}
+	else
+		map[old.y][old.x] = '0';
+}
+
+static	void	new_place_check(char **map, t_point new, t_mlx_data *mlx)
+{
+	if (map[new.y][new.x] == '0')
+		map[new.y][new.x] = 'P';
+	if (map[new.y][new.x] == 'C')
+	{
+		map[new.y][new.x] = 'P';
+		mlx->m_data.collectible_current++;
+		if (mlx->m_data.collectible_current == mlx->m_data.collectible_total)
+			mlx->m_data.exit_flag = 1;
+	}
+	if (map[new.y][new.x] == 'E')
+	{
+		if (mlx->m_data.exit_flag == 1)
+			mlx->m_data.is_e = 1;
+		else
+			mlx->m_data.covered_flag = 1;
+		map[new.y][new.x] = 'P';
 	}
 }
 
