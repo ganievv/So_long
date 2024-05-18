@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:48 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 15:50:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:19:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	display_win_message(t_mlx_data *mlx)
 
 	x = ((mlx->m_data.width * 100) / 2) - 125;
 	y = (mlx->m_data.hight * 100) / 2;
-	ft_printf("Displaying message at coordinates (%d, %d)\n", x, y);
 	mlx_string_put(mlx->connection, mlx->window, x, y,
 		0xFFFFFF, "Congratulations! You Win!");
 }
@@ -87,7 +86,10 @@ static	void	new_place_check(char **map, t_point new, t_mlx_data *mlx)
 int	events(int keycode, t_mlx_data *mlx)
 {
 	if (keycode == KEY_ESC)
-		mlx_destroy_window(mlx->connection, mlx->window);
+	{
+		cleanup(mlx);
+		exit(0);
+	}
 	if (keycode == KEY_W || keycode == KEY_A
 		|| keycode == KEY_S || keycode == KEY_D)
 	{
