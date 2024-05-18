@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:03:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 17:50:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:15:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	map_rendering(t_mlx_data *mlx)
 	if (mlx->image.img == NULL || mlx->image.addr == NULL)
 		return (1);
 	put_image(mlx);
-	mlx_hook(mlx->window, 2, 1L << 0, events, mlx);
+	mlx_hook(mlx->window, DESTROY_NOTIFY, 0, close_window, mlx);
+	mlx_hook(mlx->window, KEY_PRESS, 1L << 0, events, mlx);
 	mlx_loop(mlx->connection);
 	return (0);
 }

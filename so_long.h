@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:13:30 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 17:06:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:17:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "mlx/mlx.h"
 # include "libft/libft.h"
 # include <stdio.h>
+
+# define KEY_PRESS 2
+# define DESTROY_NOTIFY 17
 
 # define KEY_ESC 53
 # define KEY_W   13
@@ -95,5 +98,6 @@ int		map_rendering(t_mlx_data *mlx);
 void	put_image(t_mlx_data *mlx);
 int		events(int keycode, t_mlx_data *mlx);
 void	cleanup(t_mlx_data *mlx);
+int		close_window(t_mlx_data *mlx);
 
 #endif

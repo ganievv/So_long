@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/05 13:42:57 by sganiev           #+#    #+#              #
-#    Updated: 2024/05/18 17:07:12 by sganiev          ###   ########.fr        #
+#    Updated: 2024/05/18 18:18:10 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ check_isempty.c check_player.c check_wall.c      \
 check_width_hight.c free_list.c check_path.c     \
 flood_fill.c free_arr.c item_search.c            \
 map_rendering.c events.c put_image.c  cleanup.c  \
+close_window.c                                   \
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
