@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:15:59 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/17 17:14:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:36:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,12 @@ static void	read_map(int fd, t_mlx_data	*mlx)
 	close(fd);
 	mlx->m_data.map = head;
 	check_map(&(mlx->m_data));
-	map_rendering(mlx);
+	if (map_rendering(mlx) == 1)
+	{
+		ft_printf("Error\n!!!Failed to render!!!\n");
+		cleanup(mlx);
+		exit(1);
+	}
 }
 
 static void	open_map(char *map)
