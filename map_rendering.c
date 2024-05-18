@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:03:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 15:32:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:50:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,26 @@ static	int	save_textures(t_mlx_data *mlx, t_textures *game)
 		return (0);
 }
 
-int	map_rendering(t_mlx_data *mlx)
+static void	struct_init(t_mlx_data *mlx)
 {
 	mlx->m_data.exit_flag = 0;
 	mlx->m_data.movements_num = 0;
 	mlx->m_data.covered_flag = 0;
 	mlx->m_data.is_e = 0;
+	mlx->game.wall = NULL;
+	mlx->game.player = NULL;
+	mlx->game.free_space = NULL;
+	mlx->game.exit = NULL;
+	mlx->game.collect = NULL;
+	mlx->connection = NULL;
+	mlx->window = NULL;
+	mlx->image.img = NULL;
+	mlx->image.addr = NULL;
+}
+
+int	map_rendering(t_mlx_data *mlx)
+{
+	struct_init(mlx);
 	mlx->connection = mlx_init();
 	if (mlx->connection == NULL)
 		return (1);
@@ -54,9 +68,10 @@ int	map_rendering(t_mlx_data *mlx)
 	mlx->image.addr = mlx_get_data_addr(mlx->image.img,
 			&(mlx->image.bits_per_pixel),
 			&(mlx->image.line_length), &(mlx->image.endian));
+	if (mlx->image.img == NULL || mlx->image.addr == NULL)
+		return (1);
 	put_image(mlx);
 	mlx_hook(mlx->window, 2, 1L << 0, events, mlx);
 	mlx_loop(mlx->connection);
-	mlx_destroy_window(mlx->connection, mlx->window);
 	return (0);
 }
