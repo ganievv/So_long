@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:19:27 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/16 15:19:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:12:30 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	free_arr(char **arr, int hight)
 
 	i = 0;
 	while (i < hight)
-		free(arr[i++]);
-	free(arr);
+	{
+		if (arr[i])
+			free(arr[i++]);
+	}
+	if (arr)
+		free(arr);
 }
