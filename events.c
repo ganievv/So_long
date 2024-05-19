@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:48 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 17:19:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/19 16:00:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ static	void	new_place_check(char **map, t_point new, t_mlx_data *mlx)
 		if (mlx->m_data.exit_flag == 1)
 			mlx->m_data.is_e = 1;
 		else
+		{
 			mlx->m_data.covered_flag = 1;
-		map[new.y][new.x] = 'P';
+			map[new.y][new.x] = 'P';
+		}
 	}
 }
 
@@ -90,8 +92,8 @@ int	events(int keycode, t_mlx_data *mlx)
 		cleanup(mlx);
 		exit(0);
 	}
-	if (keycode == KEY_W || keycode == KEY_A
-		|| keycode == KEY_S || keycode == KEY_D)
+	if ((keycode == KEY_W || keycode == KEY_A
+			|| keycode == KEY_S || keycode == KEY_D) && mlx->m_data.is_e != 1)
 	{
 		old_place_check(&(mlx->m_data.covered_flag),
 			mlx->m_data.map_c, mlx->m_data.player);
