@@ -6,11 +6,11 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/05 13:42:57 by sganiev           #+#    #+#              #
-#    Updated: 2024/05/18 20:09:42 by sganiev          ###   ########.fr        #
+#    Updated: 2024/05/28 14:53:07 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = game
+NAME = so_long
 
 SRC = so_long.c check_collectible.c check_exit.c \
 check_file_name.c check_for_valid_symbols.c      \
@@ -30,6 +30,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 mlx_lib:
+	@if [ -f ./mlx/minilibx_mms_20200219_beta.tgz ]; then \
+		tar -xzvf ./mlx/minilibx_mms_20200219_beta.tgz -C ./mlx; \
+		mv ./mlx/minilibx_mms_20200219/* ./mlx; \
+		rm -rf ./mlx/minilibx_mms_20200219/; \
+		rm -f ./mlx/*.tgz; \
+	fi
 	make -C ./mlx
 	mv ./mlx/libmlx.dylib ./
 
