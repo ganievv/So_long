@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:53 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/17 18:09:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/28 14:58:38 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ static char	**to_array(t_map_data *m_data)
 		current = current->next;
 	}
 	return (arr);
-}
-
-static void	symb_search(t_map_data *m_data,
-	t_point *player, t_point *begin, char symb)
-{
-	if (player->y - 1 > 0 && m_data->map_arr[player->y - 1][player->x] == symb)
-	{
-		begin->x = player->x;
-		begin->y = player->y - 1;
-	}
-	else if (player->y + 1 < m_data->hight - 1
-		&& m_data->map_arr[player->y + 1][player->x] == symb)
-	{
-		begin->x = player->x;
-		begin->y = player->y + 1;
-	}
-	else if (player->x - 1 > 0
-		&& m_data->map_arr[player->y][player->x - 1] == symb)
-	{
-		begin->x = player->x - 1;
-		begin->y = player->y;
-	}
-	else if (player->x + 1 < m_data->width - 1
-		&& m_data->map_arr[player->y][player->x + 1] == symb)
-	{
-		begin->x = player->x + 1;
-		begin->y = player->y;
-	}
 }
 
 static void	isinvalid(t_point *begin, t_map_data *m_data)
@@ -113,11 +85,9 @@ void	check_path(t_map_data *m_data)
 	}
 	size.x = m_data->width;
 	size.y = m_data->hight;
-	begin.x = 0;
-	begin.y = 0;
 	item_search(m_data, &(m_data->player), 'P');
-	symb_search(m_data, &(m_data->player), &begin, '0');
-	isinvalid(&begin, m_data);
+	begin.x = m_data->player.x;
+	begin.y = m_data->player.y;
 	flood_fill(m_data->map_arr, size, begin);
 	check_flood(m_data);
 }
