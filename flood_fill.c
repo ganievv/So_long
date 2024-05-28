@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:14:16 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/16 16:44:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:10:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	flood_fill(char **tab, t_point size, t_point begin)
 
 	if (begin.x < 0 || begin.x >= size.x || begin.y < 0 || begin.y >= size.y)
 		return ;
-	if (tab[begin.y][begin.x] != '0'
-		&& tab[begin.y][begin.x] != 'C'
-		&& tab[begin.y][begin.x] != 'E')
+	if (tab[begin.y][begin.x] == '1' || tab[begin.y][begin.x] == 'F')
 		return ;
 	tab[begin.y][begin.x] = 'F';
 	up.x = begin.x;
