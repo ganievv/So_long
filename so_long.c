@@ -6,15 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:15:59 by sganiev           #+#    #+#             */
-/*   Updated: 2024/05/18 17:36:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:12:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// you should use your own ft_printf !!!
-
-// you should check comments in test_1.c file
 
 static void	check_map(t_map_data *m_data)
 {
