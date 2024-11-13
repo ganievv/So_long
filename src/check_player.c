@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-// ??? should you save coordinates of player ???
+#include "../includes/so_long.h"
 
 static int	check_line(const char *line)
 {

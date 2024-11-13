@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 static void	image_put(char symb, t_mlx_data *mlx,
 	t_textures *game, t_point *image)

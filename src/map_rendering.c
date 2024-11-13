@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 static	int	save_textures(t_mlx_data *mlx, t_textures *game)
 {
