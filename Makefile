@@ -10,50 +10,75 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME		:= so_long
 
-SRC = so_long.c check_collectible.c check_exit.c \
-check_file_name.c check_for_valid_symbols.c      \
-check_isempty.c check_player.c check_wall.c      \
-check_width_hight.c free_list.c check_path.c     \
-flood_fill.c free_arr.c item_search.c            \
-map_rendering.c events.c put_image.c  cleanup.c  \
-close_window.c                                   \
+LIBFT_DIR	:= ./libft
+LIBFT		:= $(LIBFT_DIR)/libft.a
+INCDIRS		:= -I./includes -I$(LIBFT_DIR)
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-MLX = -L./ -lmlx -framework OpenGL -framework AppKit
+VPATH		:= ./src
 
-LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libft.a
+SRC			:= so_long.c check_collectible.c check_exit.c		\
+			   check_file_name.c check_for_valid_symbols.c		\
+			   check_isempty.c check_player.c check_wall.c		\
+			   check_width_hight.c free_list.c check_path.c		\
+			   flood_fill.c free_arr.c item_search.c			\
+			   map_rendering.c events.c put_image.c  cleanup.c	\
+			   close_window.c									\
 
-all: $(NAME)
+ODIR		:= obj
+OBJ			:= $(patsubst %.c,$(ODIR)/%.o,$(SRC))
 
-mlx_lib:
+CC			:= gcc
+CFLAGS		:= -Wall -Wextra -Werror $(INCDIRS)
+MLXFLAGS	:= -L./ -lmlx -framework OpenGL -framework AppKit
+MLXLIB		:= libmlx.dylib
+
+all: $(ODIR) $(NAME)
+
+$(NAME): $(MLXLIB) $(LIBFT) $(OBJ)
+	@echo "linking ..."
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+	@echo "executable $(NAME) created successfully!"
+
+$(ODIR):
+	@mkdir -p $(ODIR)
+
+$(LIBFT):
+	@echo "compiling libft..."
+	@make -C $(LIBFT_DIR) > /dev/null 2>&1
+	@echo "library libft created successfully!"
+
+$(ODIR)/%.o: %.c
+	@$(CC) $(CFLAGS) -c -o $@ $<
+
+$(MLXLIB):
+	@echo "building mlx library..."
 	@if [ -f ./mlx/minilibx_mms_20200219_beta.tgz ]; then \
 		tar -xzvf ./mlx/minilibx_mms_20200219_beta.tgz -C ./mlx; \
 		mv ./mlx/minilibx_mms_20200219/* ./mlx; \
 		rm -rf ./mlx/minilibx_mms_20200219/; \
 		rm -f ./mlx/*.tgz; \
 	fi
-	make -C ./mlx
-	mv ./mlx/libmlx.dylib ./
-
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
-$(NAME): mlx_lib $(LIBFT)
-	$(CC) $(CFLAGS) $(SRC) $(LIBFT) $(MLX) -o $(NAME)
+	@make -C ./mlx > /dev/null 2>&1
+	@mv ./mlx/libmlx.dylib ./
+	@echo "mlx library created successfully!"
 
 clean:
-	make -C ./mlx -s clean
-	make -C ./libft -s clean
+	@echo "cleaning up temporary files..."
+	@make -C ./mlx -s clean
+	@make -C ./libft -s clean
+	@rm -f $(OBJ)
+	@echo "temporary files removed successfully!"
 
 fclean: clean
-	rm -rf libmlx.dylib
-	rm -f $(LIBFT)
-	rm -f $(NAME)
+	@echo "removing generated files..."
+	@rm -rf libmlx.dylib
+	@rm -f $(LIBFT)
+	@rm -f $(NAME)
+	@rm -rf $(ODIR)
+	@echo "all generated files removed successfully!"
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, mlx_lib, $(LIBFT), $(NAME)
+.PHONY: all clean fclean re mlx_lib
