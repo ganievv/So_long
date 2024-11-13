@@ -11,8 +11,6 @@
 - [Features](#features)
 - [Maps](#maps)
 - [Controls](#controls)
-- [Known Issues](#known-issues)
-- [License](#license)
 
 ## Objectives
 The `So_long` project helps improve skills in:
