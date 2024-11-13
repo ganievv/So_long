@@ -1,0 +1,5 @@
+*.o
+so_long
+libft.a
+libmlx.dylib
+.vscode/
